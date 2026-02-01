@@ -3,7 +3,7 @@
     --text: #222;
     --muted: #666;
     --card: #fff;
-    --accent: #2c7be5;
+    --accent: green;
   }
   
   * { box-sizing: border-box; }
@@ -43,6 +43,12 @@
     padding: 16px 18px;
     margin: 14px 0;
     box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
   }
   
   .card h2 {
