@@ -2,17 +2,55 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <title>HTML Practice</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>自己紹介</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>自己紹介</h1>
-  <p>プログラミング学習中</p>
+  <main class="container">
+    <header class="header">
+      <h1 class="title">自己紹介</h1>
+      <p class="subtitle">未経験からWebエンジニアを目指して学習中</p>
+    </header>
 
-  <h2>学習中の技術</h2>
-  <li>HTML</li>
-  <li>CSS</li>
-  <li>JavaScript</li>
-  <li>GitHub</li>
+    <section class="card">
+      <h2>いまやっていること</h2>
+      <ul>
+        <li>HTML / CSS / JavaScript の基礎学習</li>
+        <li>Git / GitHub（Desktop, Push, Pages）で成果を公開</li>
+        <li>学習ログを毎日1行でも更新</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>次に作りたいもの</h2>
+      <ul>
+        <li>自己紹介ページ（このページ）の改善</li>
+        <li>簡単なToDoアプリ</li>
+        <li>APIを使った小さなアプリ</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>リンク</h2>
+      <ul>
+        <li><a href="https://github.com/aruto-nick" target="_blank" rel="noreferrer">GitHub</a></li>
+      </ul>
+      <p class="note">※ このページは GitHub Pages で公開しています。</p>
+    </section>
+
+    <footer class="footer">
+      <small>Last updated: <span id="date"></span></small>
+    </footer>
+  </main>
+
+  <script>
+    // 今日の日付を表示（ページが少し“動く”）
+    const d = new Date();
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, "0");
+    const day = String(d.getDate()).padStart(2, "0");
+    document.getElementById("date").textContent = `${y}-${m}-${day}`;
+  </script>
 </body>
 </html>
