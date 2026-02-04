@@ -12,5 +12,11 @@ let count = 0;
 
 btnCount.addEventListener("click",()=>{
   count++;
-  countText.textContent = `クリック回数:${count}`;
+
+  if(count>=10){
+    countText.textContent = "🎉 10回達成！";
+  }else{
+    countText.textContent = `クリック回数:${count}`;  
+  }
+  
 });
