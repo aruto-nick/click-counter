@@ -100,3 +100,10 @@
     color: var(--muted);
     text-align: center;
   }
+
+  .achieved{
+    color: white;
+    background-color: green;
+    padding: 8px;
+    border-radius: 6px;
+  }
