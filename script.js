@@ -11,6 +11,7 @@ const countText = document.getElementById("count");
 const btnCount = document.getElementById("btnCount");
 const restBtn = document.getElementById("resetBtn");
 
+
 // 【変数の設定】
 
 let count = 0;
@@ -64,6 +65,17 @@ function updateButtonState(){
   }
 }
 
+function handleCountClick (){
+  count ++;
+  updateDisplay();
+}
+
+function handleResetClick (){
+  count = 0;
+  isAchieved = false;
+  updateDisplay();
+}
+
 
 // 【関数の実行】
 
@@ -71,17 +83,10 @@ btnMessage.addEventListener("click", () => {
   message.textContent = "クリックされました！";
 });
 
-btnCount.addEventListener("click",()=>{
-  count++;
-  updateDisplay();  
-});
+btnCount.addEventListener("click",(handleCountClick));
 
 
 
-resetBtn.addEventListener("click",()=>{
-  count = 0 ;
-  btnCount.disabled = false ;
-  updateDisplay();
-});
+resetBtn.addEventListener("click",(handleResetClick));
 
 updateDisplay();
