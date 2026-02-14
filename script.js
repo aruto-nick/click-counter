@@ -1,5 +1,5 @@
 const message = document.getElementById("message");
-const btn = document.getElementById("btnMessage");
+const btnMessage = document.getElementById("btnMessage");
 const GOAL = 10;
 const messages = {
   normal: (c) => `クリック回数:${c}`,
@@ -9,12 +9,20 @@ const messages = {
 
 const countText = document.getElementById("count");
 const btnCount = document.getElementById("btnCount");
-const restBtn = document.getElementById("resetBtn");
+const resetBtn = document.getElementById("resetBtn");
+
+const STORAGE_KEY = "clickCount";
+
+const savedCount = localStorage.getItem(STORAGE_KEY);
 
 
 // 【変数の設定】
 
 let count = 0;
+
+if (savedCount !== null){
+  count = Number(savedCount);
+}
 
 let isAchieved = false ;
 // 意味：「まだ達成していない」
@@ -65,14 +73,20 @@ function updateButtonState(){
   }
 }
 
+// 関数：①カウント＋１　②　③画面の表示
+
 function handleCountClick (){
   count ++;
+  localStorage.setItem(STORAGE_KEY,String(count));
   updateDisplay();
 }
+
+// 関数：①カウント＋１　②　③　④画面の表示
 
 function handleResetClick (){
   count = 0;
   isAchieved = false;
+  localStorage.removeItem(STORAGE_KEY);
   updateDisplay();
 }
 
