@@ -14,6 +14,7 @@ const resetBtn = document.getElementById("resetBtn");
 const STORAGE_KEY = "clickCount";
 
 const savedCount = localStorage.getItem(STORAGE_KEY);
+console.log("保存されている値:",savedCount);
 
 
 // 【変数の設定】
@@ -77,6 +78,7 @@ function updateButtonState(){
 
 function handleCountClick (){
   count ++;
+  console.log("保存する値:",count);
   localStorage.setItem(STORAGE_KEY,String(count));
   updateDisplay();
 }
