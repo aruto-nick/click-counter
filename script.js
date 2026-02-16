@@ -27,6 +27,12 @@ let isAchieved = false ;
 
 // 【関数の設定】
 
+// 関数：値の変更を担当
+function incrementCount () {
+  count++;
+}
+
+
 // init関数
 
 function init () {
@@ -99,7 +105,7 @@ function updateButtonState(){
 // 関数：カウントをクリック時の処理
 
 function handleCountClick (){
-  count ++;
+  incrementCount();
   savedCount();
   updateDisplay();
 }
