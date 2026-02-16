@@ -13,9 +13,6 @@ const resetBtn = document.getElementById("resetBtn");
 
 const STORAGE_KEY = "clickCount";
 
-const savedCount = localStorage.getItem(STORAGE_KEY);
-console.log("保存されている値:",savedCount);
-
 const saveStatus = document.getElementById("saveStatus");
 
 
@@ -23,15 +20,27 @@ const saveStatus = document.getElementById("saveStatus");
 
 let count = 0;
 
-if (savedCount !== null){
-  count = Number(savedCount);
-}
-
 let isAchieved = false ;
 // 意味：「まだ達成していない」
 
 
 // 【関数の設定】
+
+// init関数
+
+function init () {
+  loadCount();
+  updateDisplay();
+}
+
+function loadCount () {
+  const savedCount = localStorage.getItem(STORAGE_KEY);
+  console.log("保存されている値:",savedCount);
+
+  if (savedCount !== null){
+    count = Number (savedCount);
+  }
+}
 
 // 関数：まとめ役
 
@@ -114,4 +123,4 @@ btnCount.addEventListener("click",(handleCountClick));
 
 resetBtn.addEventListener("click",(handleResetClick));
 
-updateDisplay();
+init();
