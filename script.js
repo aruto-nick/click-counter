@@ -11,6 +11,7 @@ const countText = document.getElementById("count");
 const btnCount = document.getElementById("btnCount");
 const resetBtn = document.getElementById("resetBtn");
 
+// 目的：定数STORAGE_KEYを設定することで文字列clickCountの名称変更が楽
 const STORAGE_KEY = "clickCount";
 
 const saveStatus = document.getElementById("saveStatus");
@@ -33,6 +34,9 @@ function init () {
   updateDisplay();
 }
 
+// 関数の目的：前回保存した回数を今のアプリに復元する
+// ①メモ帳に前回の回数があるか確認　②保存データあレバ、回数を出す
+
 function loadCount () {
   const savedCount = localStorage.getItem(STORAGE_KEY);
   console.log("保存されている値:",savedCount);
@@ -47,6 +51,13 @@ function loadCount () {
 function updateDisplay(){
   updateText();
   updateButtonState();
+}
+
+// 関数：保存担当
+
+function savedCount(){
+  localStorage.setItem(STORAGE_KEY,String(count));
+  saveStatus.textContent = "自動保存しました";
 }
 
 // 関数：表示担当
@@ -85,20 +96,15 @@ function updateButtonState(){
   }
 }
 
-// 関数：①カウント＋１　②　③画面の表示
+// 関数：カウントをクリック時の処理
 
 function handleCountClick (){
   count ++;
-  // console.log("保存する値:",count);
-
-  localStorage.setItem(STORAGE_KEY,String(count));
-
-  saveStatus.textContent = "自動保存しました";
-
+  savedCount();
   updateDisplay();
 }
 
-// 関数：①カウント＋１　②　③　④画面の表示
+// 関数：リセットをクリック時の処理
 
 function handleResetClick (){
   count = 0;
