@@ -7,6 +7,9 @@ const messages = {
   goal: "🎉 10回達成！"
 };
 
+// 目的：アプリのクリック状態を3段階で表示
+const appState = document.getElementById("appState");
+
 const countText = document.getElementById("count");
 const btnCount = document.getElementById("btnCount");
 const resetBtn = document.getElementById("resetBtn");
@@ -38,8 +41,8 @@ function resetCount (){
 }
 
 // 関数：カウント変更後の処理2つ
-function onCountChanged(){
-  savedCount();
+function updateAfterCountChange(){
+  saveCount();
   updateDisplay();
 }
 
@@ -55,11 +58,11 @@ function init () {
 // ①メモ帳に前回の回数があるか確認　②保存データあレバ、回数を出す
 
 function loadCount () {
-  const savedCount = localStorage.getItem(STORAGE_KEY);
-  console.log("保存されている値:",savedCount);
+  const saveCount = localStorage.getItem(STORAGE_KEY);
+  console.log("保存されている値:",saveCount);
 
-  if (savedCount !== null){
-    count = Number (savedCount);
+  if (saveCount !== null){
+    count = Number (saveCount);
   }
 }
 
@@ -72,7 +75,7 @@ function updateDisplay(){
 
 // 関数：保存担当
 
-function savedCount(){
+function saveCount(){
   localStorage.setItem(STORAGE_KEY,String(count));
   saveStatus.textContent = "自動保存しました";
 }
@@ -92,6 +95,16 @@ function updateText (){
   else {
     countText.textContent = messages.normal(count);
     countText.classList.remove("achieved");
+  }
+
+  if (count === 0){
+    appState.textContent = "開始前です";
+  }
+  else if (count<GOAL){
+    appState.textContent = "挑戦中です";
+  }
+  else{
+    appState.textContent = "達成済みです";
   }
 }
 
@@ -117,7 +130,7 @@ function updateButtonState(){
 
 function handleCountClick (){
   incrementCount();
-  onCountChanged();
+  updateAfterCountChange();
 }
 
 // 関数：リセットをクリック時の処理
@@ -129,7 +142,7 @@ function handleResetClick (){
 
   saveStatus.textContent = "";
 
-  onCountChanged();
+  updateAfterCountChange();
 }
 
 
