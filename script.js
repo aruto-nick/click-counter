@@ -32,6 +32,11 @@ function incrementCount () {
   count++;
 }
 
+// 関数：カウント０を担当
+function resetCount (){
+  count = 0 ;
+}
+
 // 関数：カウント変更後の処理2つ
 function onCountChanged(){
   savedCount();
@@ -118,7 +123,7 @@ function handleCountClick (){
 // 関数：リセットをクリック時の処理
 
 function handleResetClick (){
-  count = 0;
+  resetCount();
   isAchieved = false;
   localStorage.removeItem(STORAGE_KEY);
 
