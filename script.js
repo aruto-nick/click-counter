@@ -32,8 +32,14 @@ function incrementCount () {
   count++;
 }
 
+// 関数：カウント変更後の処理2つ
+function onCountChanged(){
+  savedCount();
+  updateDisplay();
+}
 
-// init関数
+
+//関数：保存回数の復元＆表示
 
 function init () {
   loadCount();
@@ -106,8 +112,7 @@ function updateButtonState(){
 
 function handleCountClick (){
   incrementCount();
-  savedCount();
-  updateDisplay();
+  onCountChanged();
 }
 
 // 関数：リセットをクリック時の処理
@@ -119,7 +124,7 @@ function handleResetClick (){
 
   saveStatus.textContent = "";
 
-  updateDisplay();
+  onCountChanged();
 }
 
 
