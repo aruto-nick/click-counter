@@ -7,14 +7,21 @@ const messages = {
   goal: "🎉 10回達成！"
 };
 
-// 目的：アプリのクリック状態を3段階で表示
+// 定数：状態メッセージのまとめ
+const stateMessages = {
+  start:"開始前です",
+  progress:"挑戦中です",
+  complete:"達成済みです"
+};
+
+// 定数：アプリのクリック状態を3段階で表示
 const appState = document.getElementById("appState");
 
 const countText = document.getElementById("count");
 const btnCount = document.getElementById("btnCount");
 const resetBtn = document.getElementById("resetBtn");
 
-// 目的：定数STORAGE_KEYを設定することで文字列clickCountの名称変更が楽
+// 定数：定数STORAGE_KEYを設定することで文字列clickCountの名称変更が楽
 const STORAGE_KEY = "clickCount";
 
 const saveStatus = document.getElementById("saveStatus");
@@ -38,6 +45,10 @@ function incrementCount () {
 // 関数：カウント０を担当
 function resetCount (){
   count = 0 ;
+}
+
+function isGoalReached (){
+  return count >= GOAL;
 }
 
 // 関数：カウント変更後の処理2つ
@@ -80,9 +91,22 @@ function saveCount(){
   saveStatus.textContent = "自動保存しました";
 }
 
+// 関数：状態を判断
+function getAppState () {
+  if (count === 0){
+    return "start";
+  }
+  else if (count < GOAL){
+    return "progress";
+  }
+  else {
+    return "complete";
+  }
+}
+
 // 関数：表示担当
 function updateText (){
-  if (count >= GOAL){
+  if (isGoalReached ()){
     countText.textContent = messages.goal;
     countText.classList.add("achieved");
   }
@@ -97,21 +121,15 @@ function updateText (){
     countText.classList.remove("achieved");
   }
 
-  if (count === 0){
-    appState.textContent = "開始前です";
-  }
-  else if (count<GOAL){
-    appState.textContent = "挑戦中です";
-  }
-  else{
-    appState.textContent = "達成済みです";
-  }
+  const state = getAppState();
+
+  appState.textContent = stateMessages[state];
 }
 
 // 関数：ボタン担当
 
 function updateButtonState(){
-  if (count >= GOAL){
+  if (isGoalReached ()){
     btnCount.disabled = true;
 
     if (! isAchieved){
