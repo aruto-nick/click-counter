@@ -1,6 +1,7 @@
 const message = document.getElementById("message");
 const btnMessage = document.getElementById("btnMessage");
 const GOAL = 10;
+const NEAR_GOAL = 5;
 const messages = {
   normal: (c) => `クリック回数:${c}`,
   near: (c) => `クリック回数:${c}(もう少し!)`,
@@ -111,7 +112,7 @@ function updateText (){
     countText.classList.add("achieved");
   }
 
-  else if(count >= 5){
+  else if(count >= NEAR_GOAL){
     countText.textContent = messages.near(count);
     countText.classList.remove("achieved");
   }
