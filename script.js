@@ -35,6 +35,9 @@ let count = 0;
 let isAchieved = false ;
 // 意味：「まだ達成していない」
 
+// 変数：保存ステータス（表示を消すための）タイマーID
+let saveStatusTimerId = null ;
+
 
 // 【関数の設定】
 
@@ -71,10 +74,10 @@ function init () {
 
 function loadCount () {
   const saveCount = localStorage.getItem(STORAGE_KEY);
-  console.log("保存されている値:",saveCount);
+  console.log("保存されている値:",savedCount);
 
   if (saveCount !== null){
-    count = Number (saveCount);
+    count = Number (savedCount);
   }
 }
 
@@ -90,6 +93,19 @@ function updateDisplay(){
 function saveCount(){
   localStorage.setItem(STORAGE_KEY,String(count));
   saveStatus.textContent = "自動保存しました";
+
+  // 連打しても最後の通知だけ残すために、前のタイマーを消す
+  if (saveStatusTimerId !== null){
+    clearTimeout(saveStatusTimerId);
+  }
+
+  // １秒後に通知を消す
+  saveStatusTimerId = setTimeout ( () => {
+    saveStatus.textContent = "";
+    saveStatusTimerId = null;
+  },1000);
+
+
 }
 
 // 関数：状態を判断
@@ -160,6 +176,12 @@ function handleResetClick (){
   localStorage.removeItem(STORAGE_KEY);
 
   saveStatus.textContent = "";
+
+  // reset時もタイマーを止める（安全策）
+  if (saveStatusTimerId !== null) {
+    clearTimeout(saveStatusTimerId);
+    saveStatusTimerId = null;
+  }
 
   updateAfterCountChange();
 }
