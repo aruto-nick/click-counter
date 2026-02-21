@@ -73,10 +73,10 @@ function init () {
 // ①メモ帳に前回の回数があるか確認　②保存データあレバ、回数を出す
 
 function loadCount () {
-  const saveCount = localStorage.getItem(STORAGE_KEY);
+  const savedCount = localStorage.getItem(STORAGE_KEY);
   console.log("保存されている値:",savedCount);
 
-  if (saveCount !== null){
+  if (savedCount !== null){
     count = Number (savedCount);
   }
 }
