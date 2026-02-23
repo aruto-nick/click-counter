@@ -88,6 +88,29 @@ function updateDisplay(){
   updateButtonState();
 }
 
+// 関数：表示担当
+function updateText (){
+  if (isGoalReached ()){
+    countText.textContent = messages.goal;
+    countText.classList.add("achieved");
+  }
+
+  else if(count >= NEAR_GOAL){
+    countText.textContent = messages.near(count);
+    countText.classList.remove("achieved");
+  }
+
+  else {
+    countText.textContent = messages.normal(count);
+    countText.classList.remove("achieved");
+  }
+
+  const state = getAppState();
+
+  appState.textContent = stateMessages[state];
+}
+
+
 // 関数：保存担当
 
 function saveCount(){
@@ -119,28 +142,6 @@ function getAppState () {
   else {
     return "complete";
   }
-}
-
-// 関数：表示担当
-function updateText (){
-  if (isGoalReached ()){
-    countText.textContent = messages.goal;
-    countText.classList.add("achieved");
-  }
-
-  else if(count >= NEAR_GOAL){
-    countText.textContent = messages.near(count);
-    countText.classList.remove("achieved");
-  }
-
-  else {
-    countText.textContent = messages.normal(count);
-    countText.classList.remove("achieved");
-  }
-
-  const state = getAppState();
-
-  appState.textContent = stateMessages[state];
 }
 
 // 関数：ボタン担当
