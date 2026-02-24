@@ -3,7 +3,9 @@
     --text: #222;
     --muted: #666;
     --card: #fff;
-    --accent: green;
+    --accent: #1f7a1f;
+    --border:rgba(0,0,0,0.08);
+    --shadow:0 8px 24px rgba(0,0,0,0.08);
   }
   
   * { box-sizing: border-box; }
@@ -16,20 +18,22 @@
     line-height: 1.7;
   }
   
+  /* 画面中央寄せ　＋　余白（スマホでも見やすい） */
   .container {
     max-width: 720px;
-    margin: 40px auto;
+    margin: 48px auto;
     padding: 0 16px;
   }
   
   .header {
-    margin-bottom: 16px;
+    margin-bottom: 18px;
   }
 
   .title {
     margin: 0 0 6px;
     color: var(--accent);
     font-size: 28px;
+    letter-spacing: 0.2px;
   }
   
   .subtitle {
@@ -37,29 +41,29 @@
     color: var(--muted);
   }
   
+  /* カード：少しホバー。派手さを抑えて上品に。 */
   .card {
     background: var(--card);
-    border-radius: 14px;
-    padding: 16px 18px;
-    margin: 14px 0;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
-    transition: transform 0.2s ease,
-                 box-shadow 0.2s ease,
-                 background-color 0.2s ease;
-
+    border-radius: 16px;
+    padding: 18px 20px;
+    margin: 16px 0;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    transition: transform 0.15s ease,
+                 box-shadow 0.15s ease,
   }
 
   .card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
-    background-color: #f0f8ff;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.10);
   }
   
   .card h2 {
-    margin: 0 0 8px;
+    margin: 0 0 10px;
     font-size: 18px;
   }
   
+  /* リンク */
   a {
     color: var(--accent);
     text-decoration: none;
@@ -69,24 +73,34 @@
     text-decoration: underline;
   }
 
+  /* ボタン：色の一貫性＋影を自然に */
   .btn{
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
     padding: 10px 16px;
-    border-radius: 6px;
+    min-height: 40px;
+    border-radius: 10px;
+
     background-color: var(--accent);
     color: #fff;
     text-decoration: none;
-    font-weight: bold;
+    font-weight: 700;
 
-    transition: background-color 0.2s ease,
+    border: 0;
+    cursor: pointer;
+
+    transition: filter 0.15s ease,
                 transform 0.2s ease,
                 box-shadow 0.2s ease;
   }
 
   .btn:hover{
-    background-color: #2c7be5;
-    transform: translateY(-4px);
-    box-shadow: 0 6px 14px yellow;
+    transform: translateY(-1px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+    filter: brightness(1.05);
   }
 
   .note {
@@ -96,14 +110,120 @@
   }
   
   .footer {
-    margin-top: 18px;
+    margin-top: 22px;
     color: var(--muted);
     text-align: center;
   }
 
+  /* 達成表示：読みやすさUP（背景・枠・余白を整える） */
   .achieved{
-    color: white;
-    background-color: green;
-    padding: 8px;
-    border-radius: 6px;
+    display: inline-block;
+    color: #fff;
+    background: var(--accent);
+    padding: 8px 10px;
+    border-radius: 10px;
+    font-weight: 700;
   }
+
+
+  /* buttonのデフォルト見た目を安定させる */
+button.btn {
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+/* キーボード操作（Tab）でも分かるフォーカス表示 */
+.btn:focus-visible {
+  outline: 3px solid rgba(31, 122, 31, 0.35);
+  outline-offset: 3px;
+}
+
+/* 無効状態があるなら（JSでdisabled付ける場合） */
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+  filter: none;
+}
+
+/* ユーザーが「動き少なめ」を希望している環境に配慮（地味に好印象） */
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .btn {
+    transition: none;
+  }
+  .card:hover,
+  .btn:hover {
+    transform: none;
+  }
+}
+
+
+/* ===== Click Counter UI (minimal polish) ===== */
+
+/* カード内の要素間の余白を安定させる */
+.card p {
+  margin: 8px 0;
+}
+
+/* カウント表示を強調 */
+#count {
+  font-size: 18px;
+  font-weight: 700;
+  margin-top: 10px;
+}
+
+/* 状態表示（GOAL/NEAR_GOALなど） */
+#appState {
+  margin-top: 6px;
+  color: var(--muted);
+}
+
+/* 保存ステータスは“通知っぽく”見せる（表示がある時だけ目立つ） */
+#saveStatus {
+  margin-top: 10px;
+  min-height: 1.2em; /* 文字が出たり消えたりしてもガタつかない */
+  font-size: 14px;
+  color: var(--muted);
+}
+
+/* ボタンを横並びにして、スマホでは折り返す */
+#btnCount,
+#resetBtn {
+  width: 100%;
+  max-width: 220px;
+}
+
+/* ボタン2つをまとめて整列（親が.cardなら効く） */
+.card {
+  /* 既にある .card に追記でOK */
+}
+
+.card button.btn {
+  margin-top: 12px;
+}
+
+/* 2つのボタンを横並びにしたい場合：
+   ボタンを <div class="actions"> で囲めるなら一番きれい。
+   いまHTMLを変えない前提で、近い見た目に寄せるCSSを入れる。
+*/
+.card button.btn {
+  display: inline-flex;
+}
+
+/* 2ボタンを自然に並べる */
+.card #btnCount,
+.card #resetBtn {
+  margin-right: 10px;
+}
+
+/* 画面が狭いときは縦並びに戻す */
+@media (max-width: 520px) {
+  .card #btnCount,
+  .card #resetBtn {
+    width: 100%;
+    max-width: none;
+    margin-right: 0;
+  }
+}
