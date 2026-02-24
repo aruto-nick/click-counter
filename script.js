@@ -76,10 +76,21 @@ function loadCount () {
   const savedCount = localStorage.getItem(STORAGE_KEY);
   console.log("保存されている値:",savedCount);
 
-  if (savedCount !== null){
-    count = Number (savedCount);
+
+  // もし保存データがなければ
+  if (savedCount === null) return;
+ 
+      const parsed = Number (savedCount);
+
+    if (!Number.isNaN(parsed)  && parsed >= 0 ){
+      count = parsed;
+    }else{
+      count = 0;
+      // 目的：壊れたデータを消すこと
+      localStorage.removeItem(STORAGE_KEY);
+    }
   }
-}
+
 
 // 関数：まとめ役
 
@@ -111,10 +122,15 @@ function updateText (){
 }
 
 
-// 関数：保存担当
+// 関数：保存をする
 
 function saveCount(){
   localStorage.setItem(STORAGE_KEY,String(count));
+  showAutoSaveStatus();
+}
+
+// 関数：通知を出す
+function showAutoSaveStatus () {
   saveStatus.textContent = "自動保存しました";
 
   // 連打しても最後の通知だけ残すために、前のタイマーを消す
