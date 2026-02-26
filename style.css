@@ -195,10 +195,6 @@ button.btn {
   max-width: 220px;
 }
 
-/* ボタン2つをまとめて整列（親が.cardなら効く） */
-.card {
-  /* 既にある .card に追記でOK */
-}
 
 .card button.btn {
   margin-top: 12px;
